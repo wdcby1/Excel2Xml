@@ -1,4 +1,4 @@
-package etc;
+package com.asokorea;
 
 import java.io.BufferedWriter;
 import java.io.File;
