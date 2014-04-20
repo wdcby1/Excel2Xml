@@ -88,37 +88,37 @@ public class ExcelHelper {
 	
 	private String cellToString(Cell cell){
 		String result = null;
-		
-        switch (cell.getCellType()) {
-        case Cell.CELL_TYPE_STRING:
-            result = cell.getStringCellValue();
-            break;
-        case Cell.CELL_TYPE_NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-            	result = cell.getDateCellValue().toString();
-            } else {
-            	int i = (int)cell.getNumericCellValue();
-            	double d = cell.getNumericCellValue();
-            	
-            	if(i == d)
-            	{
-            		result = String.valueOf(i);
-            	}else{
-            		result = String.valueOf(d);
-            	}
-            }
-            break;
-        case Cell.CELL_TYPE_BOOLEAN:
-            result = Boolean.toString(cell.getBooleanCellValue());
-            break;
-        case Cell.CELL_TYPE_FORMULA:
-        	result = cell.getCellFormula();
-            break;
-        default:
-        	result = null;
-        }
-        
-        return result;
+
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_STRING:
+			result = cell.getStringCellValue();
+			break;
+		case Cell.CELL_TYPE_NUMERIC:
+			if (DateUtil.isCellDateFormatted(cell)) {
+				result = cell.getDateCellValue().toString();
+			} else {
+				int i = (int)cell.getNumericCellValue();
+				double d = cell.getNumericCellValue();
+
+				if(i == d)
+				{
+					result = String.valueOf(i);
+				}else{
+					result = String.valueOf(d);
+				}
+			}
+			break;
+		case Cell.CELL_TYPE_BOOLEAN:
+			result = Boolean.toString(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_FORMULA:
+			result = cell.getCellFormula();
+			break;
+		default:
+			result = null;
+		}
+
+		return result;
 	}
 	
 	private String workbook2xml(org.apache.poi.ss.usermodel.Workbook workbook) {
@@ -141,7 +141,7 @@ public class ExcelHelper {
 
 			for (int i = 0; i < workbook.getNumberOfSheets(); ++i) {
 				
-				sheet = workbook.getSheetAt(0);
+				sheet = workbook.getSheetAt(i);
 				
 				if(sheet != null && sheet.getLastRowNum() > 0){
 					
