@@ -24,7 +24,8 @@ if "%str1%"=="%str3%" (
 )
 
 :JAR
-	.\jre7\bin\java -Xms16m -Xmx1024m -jar Excel2Xml.jar "%src%" %opt%
+	rem java -jar Excel2Xml.jar "%src%" %opt%
+	.\jre7\bin\java -jar Excel2Xml.jar "%src%" %opt%
 	goto END
 
 :EXE

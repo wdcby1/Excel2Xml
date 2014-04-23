@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.Iterator;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -88,37 +89,37 @@ public class ExcelHelper {
 	
 	private String cellToString(Cell cell){
 		String result = null;
-		
-        switch (cell.getCellType()) {
-        case Cell.CELL_TYPE_STRING:
-            result = cell.getStringCellValue();
-            break;
-        case Cell.CELL_TYPE_NUMERIC:
-            if (DateUtil.isCellDateFormatted(cell)) {
-            	result = cell.getDateCellValue().toString();
-            } else {
-            	int i = (int)cell.getNumericCellValue();
-            	double d = cell.getNumericCellValue();
-            	
-            	if(i == d)
-            	{
-            		result = String.valueOf(i);
-            	}else{
-            		result = String.valueOf(d);
-            	}
-            }
-            break;
-        case Cell.CELL_TYPE_BOOLEAN:
-            result = Boolean.toString(cell.getBooleanCellValue());
-            break;
-        case Cell.CELL_TYPE_FORMULA:
-        	result = cell.getCellFormula();
-            break;
-        default:
-        	result = null;
-        }
-        
-        return result;
+
+		switch (cell.getCellType()) {
+		case Cell.CELL_TYPE_STRING:
+			result = cell.getStringCellValue();
+			break;
+		case Cell.CELL_TYPE_NUMERIC:
+			if (DateUtil.isCellDateFormatted(cell)) {
+				result = cell.getDateCellValue().toString();
+			} else {
+				int i = (int)cell.getNumericCellValue();
+				double d = cell.getNumericCellValue();
+
+				if(i == d)
+				{
+					result = String.valueOf(i);
+				}else{
+					result = String.valueOf(d);
+				}
+			}
+			break;
+		case Cell.CELL_TYPE_BOOLEAN:
+			result = Boolean.toString(cell.getBooleanCellValue());
+			break;
+		case Cell.CELL_TYPE_FORMULA:
+			result = cell.getCellFormula();
+			break;
+		default:
+			result = null;
+		}
+
+		return result;
 	}
 	
 	private String workbook2xml(org.apache.poi.ss.usermodel.Workbook workbook) {
@@ -141,9 +142,9 @@ public class ExcelHelper {
 
 			for (int i = 0; i < workbook.getNumberOfSheets(); ++i) {
 				
-				sheet = workbook.getSheetAt(0);
+				sheet = workbook.getSheetAt(i);
 				
-				if(sheet != null && sheet.getLastRowNum() > 0){
+				if(sheet != null && sheet.rowIterator().hasNext()){
 					
 					sb.append("\t");
 					sb.append("<sheet>");
@@ -154,7 +155,8 @@ public class ExcelHelper {
 
 					int j = 0;
 					
-					for (Row row : sheet) {
+					for (Iterator<Row> iterator = sheet.rowIterator(); iterator.hasNext();) {
+						Row row = (Row) iterator.next();
 						
 						sb.append("\t\t");
 						sb.append("<row number=\"" + j + "\">");
