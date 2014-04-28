@@ -158,26 +158,30 @@ public class ExcelHelper {
 					for (Iterator<Row> iterator = sheet.rowIterator(); iterator.hasNext();) {
 						Row row = (Row) iterator.next();
 						
-						sb.append("\t\t");
-						sb.append("<row number=\"" + j + "\">");
-						sb.append(newLine);
-						
 						int k = 0;
-						
-						for (Cell cell : row) {
-							sb.append("\t\t\t");
-							sb.append("<col number=\"" + k + "\">");
-							sb.append("<![CDATA[" + cellToString(cell) + "]]>");
-							sb.append("</col>");
+
+						if(row.getCell(0) != null && row.getCell(0).getStringCellValue() != null
+								&& row.getCell(0).getStringCellValue().trim().length() > 0){
+							
+							sb.append("\t\t");
+							sb.append("<row number=\"" + j + "\">");
 							sb.append(newLine);
-							k++;
+
+							for (Cell cell : row) {
+								sb.append("\t\t\t");
+								sb.append("<col number=\"" + k + "\">");
+								sb.append("<![CDATA[" + cellToString(cell) + "]]>");
+								sb.append("</col>");
+								sb.append(newLine);
+								k++;
+							}
+							
+							sb.append("\t\t");
+							sb.append("</row>");
+							sb.append(newLine);
 						}
 
 						j++;
-						
-						sb.append("\t\t");
-						sb.append("</row>");
-						sb.append(newLine);
 						
 					}
 					
