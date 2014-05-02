@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+  <sheet name="task">
+	  <cellValues>
+		  <cellValue name="createDate" ref="E3" type="date">1398900000000</cellValue>
+		  <cellValue name="total" ref="B4" type="number">100</cellValue>
+          <cellValue name="success" ref="B5" type="number">83</cellValue>
+	  </cellValues>
+	  <rows startRef="A10" endRef="E10">
+		  <row>
+			  <rowValue name="hostName" ref="A10" type="string">HOSTNAME</rowValue>
+			  <rowValue name="ip" ref="B10" type="string">220.64.140.216</rowValue>
+			  <rowValue name="isComplete" ref="C10" type="bool">true</rowValue>
+			  <rowValue name="userCount" ref="D10" type="number">3</rowValue>
+			  <rowValue name="errorLog" ref="E10" type="string"></rowValue>
+		  </row>
+	  </rows>
+  </sheet>
+</report>
